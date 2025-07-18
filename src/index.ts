@@ -1,10 +1,10 @@
-// index.ts
 import app from "./app";
+import dotenv from "dotenv"; // Import dotenv
 
-// 1. Define the application port
-const port = 3000;
+dotenv.config(); // Loads the environment variables from the file
 
-// 2. Instructs the express app to listen on port 3000
+const port = process.env.PORT; // Access the port defined in .env
+
 app.listen(port, () => {
-    console.log(`Server is running at http://localhost:${port}`)
+    console.log(`Server is running at http://localhost:${port}`);
 });
