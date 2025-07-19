@@ -1,6 +1,7 @@
 import express, {Express, Request, Response} from "express";
 import cors from "cors";
 import customersRoutes from "./routes/customer.routes";
+import userRoutes from "./routes/user.routes";
 
 const app: Express = express();
 
@@ -19,6 +20,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use("/api/customers",customersRoutes);
+app.use("api/user/",userRoutes)
 
 // 4. Expert the app to use outside (in index.ts)
 export default app;
