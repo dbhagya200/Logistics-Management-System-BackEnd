@@ -11,17 +11,79 @@ export const getAllCustomers = async (req:Request, res:Response) => {
 }
 
 export const createCustomer = async (req:Request, res:Response) => {
-
+    try{
+        const customer = req.body;
+        const ValidationError = customerService.validateCustomer(customer);
+        if(ValidationError){
+            res.status(400).json({error:ValidationError});
+            return;
+        }else {
+            const savedCustomer = await customerService.saveCustomer(customer);
+            res.status(201).json(savedCustomer);
+            console.log(savedCustomer);
+        }
+    }catch (error) {
+        res.status(500).json({error:"Something went wrong"});
+    }
 }
 
 export const getCustomerById = async (req:Request, res:Response) => {
-
+    try{
+        const id = parseInt(req.params.id);
+        if(isNaN(id)){
+            res.status(404).json({error:"Invalid customer id"});
+            return;
+        }
+        const customer = await customerService.getCustomerById(id);
+        if(!customer){
+            res.status(404).json({error:"Customer not found"});
+            return;
+        }
+        res.status(200).json(customer);
+    }catch (error) {
+        res.status(500).json({error:"Something went wrong"});
+    }
 }
 
 export const updateCustomer = async (req:Request, res:Response) => {
-
+    try {
+        const customerId = parseInt(req.params.id);
+        if(isNaN(customerId)){
+            res.status(404).json({error:"Invalid customer id"});
+            return;
+        }
+        const customer = req.body;
+        const ValidationError = customerService.validateCustomer(customer);
+        if(ValidationError){
+            res.status(400).json({error:ValidationError});
+            return;
+        }else {
+            const updatedCustomer = await customerService.updateCustomer(customerId, customer);
+            if(!updatedCustomer){
+                res.status(404).json({error:"Customer not found"});
+                return;
+            }
+            res.status(200).json(updatedCustomer);
+        }
+    }catch (error) {
+        res.status(500).json({error:"Something went wrong"});
+    }
 }
 
 export const deleteCustomer = async (req:Request, res:Response) => {
-
+    try {
+        const deleteId = parseInt(req.params.id);
+        if(isNaN(deleteId)){
+            res.status(404).json({error:"Invalid customer id"});
+            return;
+        }
+        const isDeleted = await customerService.deleteCustomer(deleteId);
+        if(!isDeleted){
+            res.status(404).json({error:"Customer not found"});
+            return;
+        }
+        res.status(200).json({message:"Customer deleted successfully"});
+    }catch (error) {
+        res.status(500).json({error:"Something went wrong"});
+    }
 }
