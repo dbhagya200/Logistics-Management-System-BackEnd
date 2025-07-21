@@ -6,8 +6,8 @@ export const getAllUsers = async ():Promise<UserDTO[]> => {
     return User.find();
 }
 
-export const getUserById = async (id:number):Promise<any> => {
-    return User.findById({id: id});
+export const getUserByUsername = async (username:string) => {
+    return User.findOne({username: username});
 }
 
 export const updateUser = async (id:number, data:UserDTO) => {

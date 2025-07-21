@@ -5,12 +5,9 @@ export const getAllCustomers = async ():Promise<CustomerDTO[]> =>{
     return Customer.find();
 }
 
-export const saveCustomer = async (customer:CustomerDTO):Promise<CustomerDTO> => {
-    return Customer.create(customer);
-}
 
-export const getCustomerById = async (id:number):Promise<any> => {
-    return Customer.findById({id: id});
+export const getCustomerByUsername = async (name:string):Promise<any> => {
+    return Customer.findById({username: name});
 }
 
 export const updateCustomer = async (id:number, data:CustomerDTO) => {
@@ -29,8 +26,10 @@ export const deleteCustomer = async (id:number) => {
 }
 
 export const validateCustomer = (customer:CustomerDTO) => {
-    if (!customer.full_name || !customer.nic || !customer.phone_number || !customer.email || !customer.address || !customer.city || !customer.postal_code) {
+    if (!customer.fullName || !customer.username || !customer.password || !customer.nic ||
+        !customer.phoneNumber || !customer.email || !customer.address || !customer.city ||
+        !customer.postalCode ) {
         return "All fields are required";
     }
-    return true;
+    return null;
 }

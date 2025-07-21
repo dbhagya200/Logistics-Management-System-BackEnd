@@ -10,15 +10,13 @@ export const getAllUsers = async (req:Request, res:Response) => {
     }
 }
 
-export const getUserById = async (req:Request, res:Response) => {
+
+
+export const getUserByUsername = async (req:Request, res:Response) => {
     try{
-        const userId = parseInt(req.params.id);
-        if (isNaN(userId)) {
-            res.status(404).json({error:"Invalid user id"});
-            return;
-        }
-        const user = await userService.getUserById(userId);
-        if (!user) {
+        const username = req.params.username;
+        const user = await userService.getUserByUsername(username);
+        if(!user){
             res.status(404).json({error:"User not found"});
             return;
         }

@@ -10,31 +10,12 @@ export const getAllCustomers = async (req:Request, res:Response) => {
     }
 }
 
-export const createCustomer = async (req:Request, res:Response) => {
-    try{
-        const customer = req.body;
-        const ValidationError = customerService.validateCustomer(customer);
-        if(ValidationError){
-            res.status(400).json({error:ValidationError});
-            return;
-        }else {
-            const savedCustomer = await customerService.saveCustomer(customer);
-            res.status(201).json(savedCustomer);
-            console.log(savedCustomer);
-        }
-    }catch (error) {
-        res.status(500).json({error:"Something went wrong"});
-    }
-}
 
-export const getCustomerById = async (req:Request, res:Response) => {
+export const getCustomerByUsername = async (req:Request, res:Response) => {
     try{
-        const id = parseInt(req.params.id);
-        if(isNaN(id)){
-            res.status(404).json({error:"Invalid customer id"});
-            return;
-        }
-        const customer = await customerService.getCustomerById(id);
+        const username = req.params.username;
+
+        const customer = await customerService.getCustomerByUsername(username);
         if(!customer){
             res.status(404).json({error:"Customer not found"});
             return;

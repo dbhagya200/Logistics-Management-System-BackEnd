@@ -1,12 +1,9 @@
 import mongoose from "mongoose";
 
 const UserModel = new mongoose.Schema({
-    "user_id":{
-        type: Number,
-        required: true,
-        unique: true,
-        index: true,
-        autoIncrement: true
+    "userId": {
+        autoIncrement: true,
+        type: Number
     },
     "username":{
         type: String,

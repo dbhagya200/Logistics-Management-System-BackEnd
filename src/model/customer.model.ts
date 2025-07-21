@@ -1,14 +1,21 @@
 import mongoose from "mongoose";
 
 const CustomerModel= new mongoose.Schema({
-    "customer_id":{
-        required:true,
-        type:Number,
-        unique:true,
-        index:true,
-        autoIncrement:true
+    "customerId":{
+        autoIncrement:true,
+        type:Number
     },
-    "full_name":{
+    "username":{
+        required:true,
+        type:String,
+        unique:true,
+        index:true
+    },
+    "password":{
+        required:true,
+        type:String
+    },
+    "fullName":{
         required:true,
         type:String
     },
@@ -16,7 +23,7 @@ const CustomerModel= new mongoose.Schema({
         required:true,
         type:String
     },
-    "phone_number":{
+    "phoneNumber":{
         required:true,
         type:String
     },
@@ -32,9 +39,17 @@ const CustomerModel= new mongoose.Schema({
         required:true,
         type:String
     },
-    "postal_code":{
+    "postalCode":{
         required:true,
         type:String
+    },
+    "role":{
+        type:String,
+        default:"CUSTOMER" // Assuming the role is always "CUSTOMER"
+    },
+    "status":{
+        type:String,
+        default:"ACTIVE" // Assuming the status is always "ACTIVE"
     }
 });
 

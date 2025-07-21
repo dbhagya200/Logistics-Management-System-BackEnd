@@ -1,11 +1,18 @@
+import {RoleEnum} from "../enum/role.enum";
+import {StatusEnum} from "../enum/status.enum";
+
 export interface CustomerDTO {
     customer_id:number;
-    full_name:string;
+    fullName:string;
+    username:string;
+    password:string;
     nic:string;
-    phone_number:string;
+    phoneNumber:string;
     email:string;
     address:string;
     city:string;
-    postal_code:string;
+    postalCode:string;
+    role:"CUSTOMER";
+    status:"ACTIVE";
 
 }
