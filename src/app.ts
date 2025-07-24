@@ -4,6 +4,7 @@ import customersRoutes from "./routes/customer.routes";
 import userRoutes from "./routes/user.routes";
 import {authenticateToken} from "./middleware/auth.middleware";
 import authRoutes from "./routes/auth.routes";
+import employeesRoutes from "./routes/employee.routes";
 
 const app: Express = express();
 
@@ -12,7 +13,6 @@ const allowedOrigins = ["http://localhost:5173"];
 const corsOptions = {
     origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean ) => void) => {
         if (!origin||allowedOrigins.includes(origin)){
-            //postman eken en req
             callback(null, true);
         }else{
             callback(new Error("Not allowed by CORS"));
@@ -22,8 +22,9 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use("/api/auth",authRoutes)
-app.use("api/user/",userRoutes)
+app.use("/api/user",authenticateToken,userRoutes)
 app.use("/api/customer",authenticateToken,customersRoutes);
+app.use("/api/employee",authenticateToken,employeesRoutes);
 
 
 // 4. Expert the app to use outside (in index.ts)

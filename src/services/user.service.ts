@@ -10,8 +10,8 @@ export const getUserByUsername = async (username:string) => {
     return User.findOne({username: username});
 }
 
-export const updateUser = async (id:number, data:UserDTO) => {
-    const user = await User.findOneAndUpdate({id: id}, data, {new: true});
+export const updateUser = async (name:string, data:UserDTO) => {
+    const user = await User.findOneAndUpdate({username: name}, data, {new: true});
     if (!user) {
         return null;
     }
@@ -19,8 +19,8 @@ export const updateUser = async (id:number, data:UserDTO) => {
     return user;
 }
 
-export const deleteUser = async (id:number) => {
-    await User.deleteOne({id: id});
+export const deleteUser = async (name:string) => {
+    await User.deleteOne({username: name});
     return true;
 }
 

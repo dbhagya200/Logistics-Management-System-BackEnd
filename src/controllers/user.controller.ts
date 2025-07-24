@@ -28,24 +28,19 @@ export const getUserByUsername = async (req:Request, res:Response) => {
 
 export const updateUser = async (req:Request, res:Response) => {
     try {
-        const userId = parseInt(req.params.id);
-        if (isNaN(userId)) {
-            res.status(404).json({error:"Invalid user id"});
+        const username = req.params.username;
+        if(!username){
+            res.status(404).json({error:"Invalid username"});
             return;
         }
         const user = req.body;
-        const ValidationError = userService.validateUser(user);
-        if (ValidationError) {
-            res.status(400).json({error:ValidationError});
-            return;
-        } else {
-            const updatedUser = await userService.updateUser(userId, user);
+            const updatedUser = await userService.updateUser(username, user);
             if (!updatedUser) {
                 res.status(404).json({error:"User not found"});
                 return;
             }
             res.status(200).json(updatedUser);
-        }
+
     }catch (error) {
         res.status(500).json({error:"Something went wrong"});
     }
@@ -53,12 +48,12 @@ export const updateUser = async (req:Request, res:Response) => {
 
 export const deleteUser = async (req:Request, res:Response) => {
     try {
-        const userId = parseInt(req.params.id);
-        if (isNaN(userId)) {
-            res.status(404).json({error:"Invalid user id"});
+        const username = req.params.username;
+        if(!username){
+            res.status(400).json({error:"Invalid username"});
             return;
         }
-        const deleted = await userService.deleteUser(userId);
+        const deleted = await userService.deleteUser(username);
         if (!deleted) {
             res.status(404).json({error:"User not found"});
             return;

@@ -4,9 +4,9 @@ import {authorizeRole} from "../middleware/auth.middleware";
 
 const userRouter:Router = Router();
 
-userRouter.get("/all",authorizeRole("admin"),getAllUsers);
-userRouter.get("/get/:id",authorizeRole("admin"),getUserByUsername)
-userRouter.put("/update/:id",authorizeRole("admin"),updateUser);
-userRouter.delete("/delete/:id",authorizeRole("admin"),deleteUser);
+userRouter.get("/all",authorizeRole("ADMIN"),getAllUsers);
+userRouter.get("/get/:username",authorizeRole("ADMIN"),getUserByUsername)
+userRouter.put("/update/:username",authorizeRole("ADMIN"),updateUser);
+userRouter.delete("/delete/:username",authorizeRole("ADMIN"),deleteUser);
 
 export default userRouter;

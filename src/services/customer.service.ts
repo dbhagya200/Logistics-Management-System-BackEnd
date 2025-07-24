@@ -7,11 +7,11 @@ export const getAllCustomers = async ():Promise<CustomerDTO[]> =>{
 
 
 export const getCustomerByUsername = async (name:string):Promise<any> => {
-    return Customer.findById({username: name});
+    return Customer.findOne({username: name});
 }
 
-export const updateCustomer = async (id:number, data:CustomerDTO) => {
-    const customer = await Customer.findOneAndUpdate({id: id}, data, {new: true});
+export const updateCustomer = async (name:string, data:CustomerDTO) => {
+    const customer = await Customer.findOneAndUpdate({username: name}, data, {new: true});
 
     if (!customer) {
         return null;
@@ -20,8 +20,8 @@ export const updateCustomer = async (id:number, data:CustomerDTO) => {
     return customer;
 }
 
-export const deleteCustomer = async (id:number) => {
-    await Customer.deleteOne({id: id});
+export const deleteCustomer = async (name:string) => {
+    await Customer.deleteOne({username: name});
     return true;
 }
 

@@ -26,7 +26,7 @@ export const authenticateUser = async (username: string, password: string) => {
     const accessToken = jwt.sign({
         username: existingUser.username,
         role: existingUser.role
-    }, JWT_SECRET, { expiresIn: "5m" });
+    }, JWT_SECRET, { expiresIn: "1d" });
 
     const refreshToken = jwt.sign({
         username: existingUser.username,
