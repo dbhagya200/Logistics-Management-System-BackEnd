@@ -1,7 +1,7 @@
 
 export interface StatusEnum{
-    ACTIVE: "active";
-    INACTIVE: "inactive";
-    BLOCKED: "blocked";
-    DELETED: "deleted";
+    ACTIVE: "ACTIVE";
+    INACTIVE: "INACTIVE";
+    BLOCKED: "BLOCKED";
+    DELETED: "DELETED";
 }

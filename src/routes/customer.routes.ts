@@ -9,8 +9,8 @@ import {
 const customerRouter:Router = Router();
 
 customerRouter.get("/all",getAllCustomers);
-customerRouter.get("/get/:id",getCustomerByUsername);
-customerRouter.put("/update/:id",updateCustomer);
-customerRouter.delete("/delete/:id",deleteCustomer);
+customerRouter.get("/get/:username",getCustomerByUsername);
+customerRouter.put("/update/:username",updateCustomer);
+customerRouter.delete("/delete/:username",deleteCustomer);
 
 export default customerRouter;

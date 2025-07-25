@@ -4,6 +4,8 @@ import {UserDTO} from "../dto/user.dto";
 export const getAllEmployees = async ():Promise<UserDTO[]> => {
     return User.find({ role: "EMPLOYEE, ADMIN"});
 }
+
+
 export const getEmployeeByUsername = async (username:string):Promise<any> => {
     return User.findOne({username: username, role: "EMPLOYEE"});
 }
