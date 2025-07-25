@@ -56,6 +56,7 @@ export const customerRegister = async (req: Request, res: Response) => {
         const newUser = {
             username: newCustomer.username, // or use newCustomer.email
             password: hashedPassword,
+            email: newCustomer.email,
             role: "CUSTOMER",
             status: "ACTIVE",
         };

@@ -6,6 +6,7 @@ import {authenticateToken} from "./middleware/auth.middleware";
 import authRoutes from "./routes/auth.routes";
 import employeesRoutes from "./routes/employee.routes";
 import vehiclesRoutes from "./routes/vehicle.routes";
+import jobRoutes from "./routes/job.routes";
 
 const app: Express = express();
 
@@ -27,6 +28,7 @@ app.use("/api/user",authenticateToken,userRoutes)
 app.use("/api/customer",authenticateToken,customersRoutes);
 app.use("/api/employee",authenticateToken,employeesRoutes);
 app.use("/api/vehicle",authenticateToken,vehiclesRoutes)
+app.use("/api/job",authenticateToken,jobRoutes)
 
 
 // 4. Expert the app to use outside (in index.ts)
