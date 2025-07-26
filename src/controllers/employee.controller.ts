@@ -1,5 +1,8 @@
 import {Request,Response} from "express";
 import * as employeeService from "../services/employee.service";
+import bcrypt from "bcryptjs";
+import Employee from "../model/employee.model";
+import User from "../model/user.model";
 
 export const getAllEmployees = async (req:Request, res:Response) => {
     try {
@@ -11,6 +14,26 @@ export const getAllEmployees = async (req:Request, res:Response) => {
     }
 }
 
+export const createEmployee = async (req:Request, res:Response) => {
+    try {
+        const employee = req.body;
+        const hashedPassword= bcrypt.hashSync(employee.password, 10);
+        employee.password = hashedPassword;
+        const newEmployee = await employeeService.createEmployee(employee);
+        const newUser = {
+            username: employee.username, // or use newCustomer.email
+            password: hashedPassword,
+            email: employee.email,
+            role: "EMPLOYEE",
+            status: "ACTIVE",
+        };
+        await User.create(newUser);
+        res.status(201).json(newEmployee);
+    } catch (error) {
+        console.error("Error creating employee:", error);
+        res.status(500).json({ error: "Something went wrong while creating the employee" });
+    }
+}
 
 export const getEmployeeByUsername = async (req:Request, res:Response) => {
     try {

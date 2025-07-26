@@ -1,5 +1,6 @@
 import Customer from "../model/customer.model";
 import {CustomerDTO} from "../dto/customer.dto";
+import User from "../model/user.model";
 
 export const getAllCustomers = async ():Promise<CustomerDTO[]> =>{
     return Customer.find();
@@ -22,6 +23,7 @@ export const updateCustomer = async (name:string, data:CustomerDTO) => {
 
 export const deleteCustomer = async (name:string) => {
     await Customer.deleteOne({username: name});
+    await User.deleteOne({username: name});
     return true;
 }
 

@@ -1,16 +1,20 @@
+import Employee from "../model/employee.model";
+import {EmployeeDTO} from "../dto/employee.dto";
 import User from "../model/user.model";
-import {UserDTO} from "../dto/user.dto";
 
-export const getAllEmployees = async ():Promise<UserDTO[]> => {
-    return User.find({ role: "EMPLOYEE, ADMIN"});
+export const getAllEmployees = async ():Promise<EmployeeDTO[]> => {
+    return Employee.find();
 }
 
+export const createEmployee = async (employee: EmployeeDTO) => {
+    return await Employee.create(employee);
+}
 
 export const getEmployeeByUsername = async (username:string):Promise<any> => {
-    return User.findOne({username: username, role: "EMPLOYEE"});
+    return Employee.findOne({username: username});
 }
-export const updateEmployee = async (name:string, data:UserDTO) => {
-    const employee = await User.findOneAndUpdate({username: name}, data, {new: true});
+export const updateEmployee = async (name:string, data:EmployeeDTO) => {
+    const employee = await Employee.findOneAndUpdate({username: name}, data, {new: true});
     if (!employee) {
         return null;
     }
@@ -18,10 +22,11 @@ export const updateEmployee = async (name:string, data:UserDTO) => {
     return employee;
 }
 export const deleteEmployee = async (name:string) => {
+    await Employee.deleteOne({username: name});
     await User.deleteOne({username: name});
     return true;
 }
-export const validateEmployee = (employee:UserDTO) => {
+export const validateEmployee = (employee:EmployeeDTO) => {
     if (!employee.username || !employee.password || !employee.role || !employee.status) {
         return "All fields are required";
     }

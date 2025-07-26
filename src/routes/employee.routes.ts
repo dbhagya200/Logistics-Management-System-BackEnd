@@ -1,5 +1,6 @@
 import {Router} from "express";
 import {
+    createEmployee,
     deleteEmployee,
     getAllEmployees,
     getEmployeeByUsername,
@@ -11,9 +12,10 @@ import {authorizeRole} from "../middleware/auth.middleware";
 
 const employeeRouter:Router = Router();
 
-employeeRouter.get("/all",authorizeRole("admin"),getAllEmployees);
-employeeRouter.get("/get/:username",authorizeRole("admin"),getEmployeeByUsername);
-employeeRouter.put("/update/:username",authorizeRole("admin"),updateEmployee);
-employeeRouter.delete("/delete/:username",authorizeRole("admin"),deleteEmployee);
+employeeRouter.get("/all",authorizeRole("ADMIN"),getAllEmployees);
+employeeRouter.post("/save",authorizeRole("ADMIN"),createEmployee);
+employeeRouter.get("/get/:username",authorizeRole("ADMIN"),getEmployeeByUsername);
+employeeRouter.put("/update/:username",authorizeRole("ADMIN"),updateEmployee);
+employeeRouter.delete("/delete/:username",authorizeRole("ADMIN"),deleteEmployee);
 
 export default employeeRouter;

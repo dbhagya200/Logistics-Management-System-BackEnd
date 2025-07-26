@@ -26,10 +26,11 @@ export const deleteJob = async (username: string) => {
     return true;
 }
 
+/*
 export const validateJob = (job: JobDTO) => {
     if (!job.cust_username || !job.pickup_location || !job.drop_location ||
         !job.status) {
         return "All fields are required";
     }
     return null;
-}
+}*/

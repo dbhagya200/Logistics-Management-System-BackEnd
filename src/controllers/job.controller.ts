@@ -28,10 +28,10 @@ export const getJobByUsername = async (req:Request, res:Response) => {
 export const createJob = async (req:Request, res:Response) => {
     try {
         const newJob = req.body;
-        const validationError = jobService.validateJob(newJob);
+      /*  const validationError = jobService.validateJob(newJob);
         if (validationError) {
             return res.status(400).json({ error: validationError });
-        }
+        }*/
 
         const savedJob = await jobService.createJob(newJob);
         res.status(201).json(savedJob);
