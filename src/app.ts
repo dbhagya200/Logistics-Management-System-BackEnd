@@ -8,6 +8,7 @@ import employeesRoutes from "./routes/employee.routes";
 import vehiclesRoutes from "./routes/vehicle.routes";
 import jobRoutes from "./routes/job.routes";
 import loadRoutes from "./routes/load.routes";
+import contactRouter from "./routes/contact.routes";
 
 const app: Express = express();
 
@@ -31,7 +32,7 @@ app.use("/api/employee",authenticateToken,employeesRoutes);
 app.use("/api/vehicle",authenticateToken,vehiclesRoutes)
 app.use("/api/job",authenticateToken,jobRoutes)
 app.use("/api/load",authenticateToken,loadRoutes)
+app.use("/api/contact",authenticateToken,contactRouter)
 
 
-// 4. Expert the app to use outside (in index.ts)
 export default app;
