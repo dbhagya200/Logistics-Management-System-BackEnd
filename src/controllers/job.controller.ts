@@ -1,5 +1,7 @@
 import { Request, Response } from "express"
+import { JobWithLoadsDto } from "../dto/jobWithLoads.dto";
 import * as jobService from "../services/job.service";
+import * as loadService from "../services/load.service";
 
 export const getAllJobs = async (req:Request, res:Response) => {
     try {
@@ -25,21 +27,66 @@ export const getJobByUsername = async (req:Request, res:Response) => {
     }
 }
 
-export const createJob = async (req:Request, res:Response) => {
+/*export const createJob = async (req:Request, res:Response) => {
     try {
-        const newJob = req.body;
-      /*  const validationError = jobService.validateJob(newJob);
+        const newJob:JobWithLoadsDto = req.body;
+      /!*  const validationError = jobService.validateJob(newJob);
         if (validationError) {
             return res.status(400).json({ error: validationError });
-        }*/
+        }*!/
 
         const savedJob = await jobService.createJob(newJob);
+        const newLoad ={
+            cust_username: savedJob.cust_username,
+            job_date: savedJob.job_date,
+            pickup_location: savedJob.pickup_location,
+            drop_location: savedJob.drop_location,
+            status: savedJob.status
+        }
+        await Load.create(newLoad);
         res.status(201).json(savedJob);
     } catch (error) {
         console.error("Error creating job:", error);
         res.status(500).json({ error: "Something went wrong while creating the job" });
     }
-}
+}*/
+
+export const createJob = async (req: Request, res: Response) => {
+    try {
+        const { job, load }: JobWithLoadsDto = req.body;
+
+        // Basic validation for required fields
+        if (!job || !job.cust_username || !job.pickup_location || !job.drop_location ||
+            !load || !load.description || !load.weight || !load.volume) {
+            return res.status(400).json({ message: "Missing required job or load data." });
+        }
+
+        // Create the job
+        const savedJob = await jobService.createJob({
+            cust_username: job.cust_username,
+            pickup_location: job.pickup_location,
+            drop_location: job.drop_location,
+            job_date: new Date(), // Set current date on creation
+            status: "PENDING" // Default status for new job
+        });
+
+        // Create the initial load associated with the job
+        await loadService.createLoad({
+            cust_username: savedJob.cust_username, // Link load to job's customer
+            description: load.description,
+            weight: load.weight,
+            volume: load.volume,
+            vehicle_number: load.vehicle_number,
+            status: "PENDING" // Default status for new load
+        });
+
+        res.status(201).json(savedJob); // Respond with the created job details
+    } catch (error) {
+        console.error("Error creating job:", error);
+        res.status(500).json({ message: "Something went wrong while creating the job and load", error: (error as Error).message });
+    }
+};
+
 
 export const updateJob = async (req:Request, res:Response) => {
     try {

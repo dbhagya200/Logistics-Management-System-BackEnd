@@ -1,7 +1,7 @@
 
 
 export interface JobDTO{
-    job_id: number;
+    job_id?: number;
     cust_username:string;
     pickup_location: string;
     drop_location: string;

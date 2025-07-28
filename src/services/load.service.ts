@@ -1,5 +1,6 @@
 import Load from "../model/load.model";
 import {LoadDTO} from "../dto/load.dto";
+import { HydratedDocument } from 'mongoose';
 
 export const getAllLoads = async ():Promise<LoadDTO[]> => {
     return Load.find();
@@ -9,8 +10,8 @@ export const getLoadByUsername = async (username:string):Promise<any> => {
     return  Load.findOne({cust_username: username});
 }
 
-export const createLoad = async (data:LoadDTO) => {
-    return await Load.create(data);
+export const createLoad = async (data: Omit<LoadDTO, 'load_id'>): Promise<HydratedDocument<LoadDTO>> => {
+    return Load.create(data);
 }
 
 export const updateLoad = async (username:string, data:LoadDTO) => {

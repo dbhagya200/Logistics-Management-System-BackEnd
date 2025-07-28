@@ -28,12 +28,20 @@ export const getLoadByUsername = async (req:Request, res:Response) => {
 
 export const createLoad = async (req:Request, res:Response) => {
     try {
-        const newLoad = req.body;
-        const savedLoad = await loadService.createLoad(newLoad);
+        const newLoadData = req.body;
+        // Basic validation
+        if ( !newLoadData.description || !newLoadData.weight || !newLoadData.volume) {
+            return res.status(400).json({ message: "Missing required load fields:  description, weight, volume." });
+        }
+        // Set default status if not provided, for consistency
+        if (!newLoadData.status) {
+            newLoadData.status = "PENDING";
+        }
+        const savedLoad = await loadService.createLoad(newLoadData);
         res.status(201).json(savedLoad);
     } catch (error) {
         console.error("Error creating load:", error);
-        res.status(500).json({ error: "Something went wrong while creating the load" });
+        res.status(500).json({ message: "Something went wrong while creating the load", error: (error as Error).message });
     }
 }
 

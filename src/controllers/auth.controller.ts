@@ -3,6 +3,7 @@ import * as authService from '../services/auth.service';
 import * as customerService from '../services/customer.service';
 import bcrypt from "bcryptjs";
 import User from "../model/user.model";
+import {sendRegisterEmail} from "../util/sendRegisterEmail";
 
 
 export const authenticateUser = async (req: Request, res: Response) => {
@@ -32,6 +33,7 @@ export const registerUser = async (req :Request , res: Response) => {
         newUser.password = bcrypt.hashSync(newUser.password, 10);
 
         const savedUser = await authService.registerUser(newUser);
+        await sendRegisterEmail(savedUser.email, savedUser.username);
         res.status(201).json(savedUser);
     }catch (error){
         console.log(error);
@@ -61,6 +63,7 @@ export const customerRegister = async (req: Request, res: Response) => {
             status: "ACTIVE",
         };
          await User.create(newUser);
+        // await sendRegisterEmail(newUser.email, newUser.username);
         res.status(201).json(savedCustomer);
 
     } catch (error: any) {

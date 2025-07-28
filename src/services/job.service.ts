@@ -1,15 +1,16 @@
 import Job from "../model/job.model";
-import {JobDTO} from "../dto/job.dto";
+import { JobDTO } from "../dto/job.dto";
+import { Document, Types } from "mongoose";
 
 export const getAllJobs = async (): Promise<JobDTO[]> => {
     return Job.find();
 }
-export const createJob = async (job: JobDTO) => {
-    return await Job.create(job);
+export const createJob = async (job: Omit<JobDTO, 'job_id'>): Promise<Document<unknown, {}, JobDTO> & JobDTO & { _id: Types.ObjectId }> => {
+    return Job.create(job);
 }
 
-export const getJobByUsername = async (username: string): Promise<any> => {
-    return Job.findOne({cust_username: username});
+export const getJobByUsername = async (username: string): Promise<Document<JobDTO> | null> => {
+    return Job.findOne({ cust_username: username });
 }
 
 export const updateJob = async (username: string, data: JobDTO) => {
