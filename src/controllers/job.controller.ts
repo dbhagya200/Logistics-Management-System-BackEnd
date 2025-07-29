@@ -74,29 +74,6 @@ export const getJobByUsername = async (req:Request, res:Response) => {
     }
 }
 
-/*export const createJob = async (req:Request, res:Response) => {
-    try {
-        const newJob:JobWithLoadsDto = req.body;
-      /!*  const validationError = jobService.validateJob(newJob);
-        if (validationError) {
-            return res.status(400).json({ error: validationError });
-        }*!/
-
-        const savedJob = await jobService.createJob(newJob);
-        const newLoad ={
-            cust_username: savedJob.cust_username,
-            job_date: savedJob.job_date,
-            pickup_location: savedJob.pickup_location,
-            drop_location: savedJob.drop_location,
-            status: savedJob.status
-        }
-        await Load.create(newLoad);
-        res.status(201).json(savedJob);
-    } catch (error) {
-        console.error("Error creating job:", error);
-        res.status(500).json({ error: "Something went wrong while creating the job" });
-    }
-}*/
 
 export const createJob = async (req: Request, res: Response) => {
     try {

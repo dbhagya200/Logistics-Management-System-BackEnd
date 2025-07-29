@@ -45,11 +45,11 @@ const CustomerModel= new mongoose.Schema({
     },
     "role":{
         type:String,
-        default:"CUSTOMER" // Assuming the role is always "CUSTOMER"
+        default:"CUSTOMER"
     },
     "status":{
         type:String,
-        default:"ACTIVE" // Assuming the status is always "ACTIVE"
+        default:"ACTIVE"
     }
 });
 

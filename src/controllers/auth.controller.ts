@@ -57,7 +57,7 @@ export const customerRegister = async (req: Request, res: Response) => {
         const savedCustomer = await authService.customerRegister(newCustomer);
         console.log("Customer saved:", savedCustomer);
         const newUser = {
-            username: newCustomer.username, // or use newCustomer.email
+            username: newCustomer.username,
             password: hashedPassword,
             email: newCustomer.email,
             role: "CUSTOMER",

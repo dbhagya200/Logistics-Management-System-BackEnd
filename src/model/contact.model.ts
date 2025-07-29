@@ -24,7 +24,5 @@ const contactModel = new mongoose.Schema({
 }, { timestamps: true });
 
 
-
-// Create and export the Mongoose model
 const ContactMessage = mongoose.model("ContactMessage", contactModel);
 export default ContactMessage;

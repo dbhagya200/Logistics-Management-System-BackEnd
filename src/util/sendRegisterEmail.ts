@@ -3,11 +3,10 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-// Create transporter with Gmail service
 export const transporter = nodemailer.createTransport({
     service: "gmail",
     port: 587,
-    secure: false, // true for 465, false for 587
+    secure: false,
     auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
@@ -58,8 +57,8 @@ export const sendRegisterEmail = async (toEmail: string, username: string) => {
         };
 
         await transporter.sendMail(mailOptions);
-        console.log("✅ Email sent to", toEmail);
+        console.log(" Email sent to", toEmail);
     } catch (error) {
-        console.error("❌ Email sending failed:", error);
+        console.error(" Email sending failed:", error);
     }
 };

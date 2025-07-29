@@ -26,7 +26,7 @@ export const authenticateToken = (req:Request,res:Response,next:NextFunction) =>
             return;
         }
         (req as Request &{user:any}).user=user;
-        next();     // routes will be executed after this middleware
+        next();
     })
 }
 

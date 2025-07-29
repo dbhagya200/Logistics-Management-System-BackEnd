@@ -41,12 +41,12 @@ const EmployeeModel = new mongoose.Schema({
     },
     "role": {
         type: String,
-        default:"EMPLOYEE" // Default role is EMPLOYEE
+        default:"EMPLOYEE"
 
     },
     "status": {
         type: String,
-        default: "ACTIVE" // Default status is ACTIVE
+        default: "ACTIVE"
     }
 });
 

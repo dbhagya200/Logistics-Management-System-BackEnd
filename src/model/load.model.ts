@@ -27,7 +27,7 @@ const LoadSchema = new mongoose.Schema<LoadDTO>({
     "vehicle_number": {
         type: String,
     },
-    "status": { // Added this field to match the job creation logic
+    "status": {
         type: String,
         required: true,
         default: "PENDING"

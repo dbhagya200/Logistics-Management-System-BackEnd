@@ -15,7 +15,7 @@ export const getAllJobsWithLoads = async (): Promise<JobWithAssociatedLoadsDTO[]
     const loads = await Load.find().lean() as LoadDTO[];
     const jobsWithLoads: JobWithAssociatedLoadsDTO[] = jobs.map(job => ({
         ...job,
-        loads: loads // Assign all loads for this customer to each job
+        loads: loads
     }));
     return jobsWithLoads;
 }
@@ -25,8 +25,8 @@ export const getAllJobsWithLoadsByUsername = async (username: string): Promise<J
     const loads = await Load.find({ cust_username: username }).lean() as LoadDTO[];
     const jobsWithLoads: JobWithAssociatedLoadsDTO[] = jobs.map(job => ({
         ...job,
-        loads: loads // Assign all loads for this customer to each job
-        // If loads were linked by job_id, you'd filter: loads.filter(load => load.job_id === job.job_id)
+        loads: loads
+
     }));
 
     return jobsWithLoads;

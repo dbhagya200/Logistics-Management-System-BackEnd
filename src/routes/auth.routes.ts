@@ -5,7 +5,7 @@ import {authenticateUser, customerRegister, registerUser} from "../controllers/a
 const authRouter : Router = Router();
 
 authRouter.post("/login",authenticateUser);
-authRouter.post("/register",registerUser); // This should be a different controller for registration
+authRouter.post("/register",registerUser);
 authRouter.post("/custRegister",customerRegister)
 
 export default authRouter

@@ -1,5 +1,4 @@
-import {RoleEnum} from "../enum/role.enum";
-import {StatusEnum} from "../enum/status.enum";
+
 
 export interface CustomerDTO {
     customer_id:number;

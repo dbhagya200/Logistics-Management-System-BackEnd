@@ -1,10 +1,10 @@
 import app from "./app";
 import dotenv from "dotenv";
-import DBConnection from "./db/DBConnection"; // Import dotenv
+import DBConnection from "./db/DBConnection";
 
-dotenv.config(); // Loads the environment variables from the file
+dotenv.config();
 
-const port = process.env.PORT; // Access the port defined in .env
+const port = process.env.PORT;
 
 DBConnection().then(result => console.log(result));
 

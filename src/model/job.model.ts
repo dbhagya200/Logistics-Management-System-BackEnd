@@ -22,7 +22,7 @@ const jobSchema = new mongoose.Schema<JobDTO>({
     },
     "job_date": {
         type: Date,
-        default: Date.now // Changed from autoCreate
+        default: Date.now
     },
     "status": {
         type: String,
