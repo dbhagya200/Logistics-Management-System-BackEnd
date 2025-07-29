@@ -33,7 +33,8 @@ export const registerUser = async (req :Request , res: Response) => {
         newUser.password = bcrypt.hashSync(newUser.password, 10);
 
         const savedUser = await authService.registerUser(newUser);
-        await sendRegisterEmail(savedUser.email, savedUser.username);
+        // await sendRegisterEmail(savedUser.email, savedUser.username);
+        console.log("email", savedUser.email);
         res.status(201).json(savedUser);
     }catch (error){
         console.log(error);
@@ -62,8 +63,8 @@ export const customerRegister = async (req: Request, res: Response) => {
             role: "CUSTOMER",
             status: "ACTIVE",
         };
-         await User.create(newUser);
-        // await sendRegisterEmail(newUser.email, newUser.username);
+        await User.create(newUser);
+        await sendRegisterEmail(newUser.email, newUser.username);
         res.status(201).json(savedCustomer);
 
     } catch (error: any) {

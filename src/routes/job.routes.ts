@@ -15,7 +15,7 @@ const jobRouter:Router = Router();
 jobRouter.get("/all",authorizeRole("ADMIN"),getAllJobs);
 jobRouter.get("/getAll",authorizeRole("ADMIN"),getAllJobsWithLoads);
 jobRouter.get("/get/:cust_username",authorizeRole("ADMIN"),getJobByUsername);
-jobRouter.get("/getLoad/:cust_username",authorizeRole("ADMIN"),getJobAndLoad);
+jobRouter.get("/getLoad/:cust_username",authorizeRole("ADMIN","CUSTOMER"),getJobAndLoad);
 jobRouter.post("/save",createJob);
 jobRouter.put("/update/:cust_username",updateJob);
 jobRouter.put("/update/:job_id",updateJobStatus);
